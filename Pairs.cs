@@ -1,7 +1,13 @@
+using System.Media;
+
 namespace Pairs
 {
     public partial class Pairs : Form
     {
+        private SoundPlayer soundMatch;
+        private SoundPlayer soundNoMatch;
+        private SoundPlayer soundWin;
+
         public Pairs()
         {
             InitializeComponent();
@@ -25,8 +31,10 @@ namespace Pairs
                 buttons[j].Text = newText;
                 buttons[newButtonPosition].Text = originalText;
             }
+            soundMatch = new SoundPlayer("match.wav");
+            soundNoMatch = new SoundPlayer("no match.wav");
+            soundWin = new SoundPlayer("win.wav");
         }
-
         private Button Card1;
         private Button Card2;
 
@@ -34,7 +42,7 @@ namespace Pairs
         private string card2Text = string.Empty; // = picture (Text property in Wingdings)
         private int numberOfMatchedCards = 0; // When every card is matched, a message box appears (see below).
         private int numberOfMoves = 0;
-        int timeElapsed;
+        private int timeElapsed;
 
         private void IncreaseNumberOfMoves() // Increases the number of guesses/moves and updates the corresponding label.
         {
@@ -68,13 +76,19 @@ namespace Pairs
                 IncreaseNumberOfMoves();
                 if (DoCardsMatch(card1Text, card2Text)) // When matched, the cards stay turned over (the pictures are visible) and the buttons are deactivated.
                 {
+                    soundMatch.Play();
                     Card1.Enabled = false;
                     Card2.Enabled = false;
                     numberOfMatchedCards += 2;
                 }
+                else
+                {
+                    soundNoMatch.Play();
+                }
                 if (numberOfMatchedCards == 16) // 16 = all matched
                 {
                     timer.Stop();
+                    soundWin.Play();
                     MessageBox.Show($"Congratulations! You found all pairs in {timeElapsed} seconds and {numberOfMoves} moves!", "Congratulations", MessageBoxButtons.OK);
                 }
                 card1Text = string.Empty; // The text variables (pictures) are reset so that a new pair of values can be set.
