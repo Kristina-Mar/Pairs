@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            label1 = new Label();
+            labelNumberOfMoves = new Label();
+            timer = new System.Windows.Forms.Timer(components);
+            label2 = new Label();
+            labelTimeElapsed = new Label();
+            buttonReset = new Button();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -45,12 +51,65 @@
             button14 = new Button();
             button15 = new Button();
             button16 = new Button();
-            label1 = new Label();
-            labelNumberOfMoves = new Label();
-            timer = new System.Windows.Forms.Timer(components);
-            label2 = new Label();
-            labelTimeElapsed = new Label();
+            flowLayoutPanelButtonsCards = new FlowLayoutPanel();
+            flowLayoutPanelButtonsCards.SuspendLayout();
             SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(529, 178);
+            label1.Name = "label1";
+            label1.Size = new Size(116, 25);
+            label1.TabIndex = 16;
+            label1.Text = "Move count:";
+            // 
+            // labelNumberOfMoves
+            // 
+            labelNumberOfMoves.AutoSize = true;
+            labelNumberOfMoves.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelNumberOfMoves.Location = new Point(651, 178);
+            labelNumberOfMoves.Name = "labelNumberOfMoves";
+            labelNumberOfMoves.Size = new Size(22, 25);
+            labelNumberOfMoves.TabIndex = 17;
+            labelNumberOfMoves.Text = "0";
+            // 
+            // timer
+            // 
+            timer.Interval = 1000;
+            timer.Tick += timer_Tick;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(529, 230);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 25);
+            label2.TabIndex = 18;
+            label2.Text = "Time:";
+            // 
+            // labelTimeElapsed
+            // 
+            labelTimeElapsed.AutoSize = true;
+            labelTimeElapsed.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTimeElapsed.Location = new Point(652, 230);
+            labelTimeElapsed.Name = "labelTimeElapsed";
+            labelTimeElapsed.Size = new Size(22, 25);
+            labelTimeElapsed.TabIndex = 19;
+            labelTimeElapsed.Text = "0";
+            // 
+            // buttonReset
+            // 
+            buttonReset.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonReset.Location = new Point(529, 335);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new Size(145, 46);
+            buttonReset.TabIndex = 20;
+            buttonReset.Text = "Reset game";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.Click += gameReset;
             // 
             // button1
             // 
@@ -62,7 +121,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = Color.CornflowerBlue;
-            button1.Location = new Point(12, 21);
+            button1.Location = new Point(381, 381);
             button1.Name = "button1";
             button1.Size = new Size(120, 120);
             button1.TabIndex = 0;
@@ -80,7 +139,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button2.ForeColor = Color.CornflowerBlue;
-            button2.Location = new Point(138, 21);
+            button2.Location = new Point(255, 381);
             button2.Name = "button2";
             button2.Size = new Size(120, 120);
             button2.TabIndex = 1;
@@ -98,7 +157,7 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button3.ForeColor = Color.CornflowerBlue;
-            button3.Location = new Point(264, 21);
+            button3.Location = new Point(129, 255);
             button3.Name = "button3";
             button3.Size = new Size(120, 120);
             button3.TabIndex = 2;
@@ -116,7 +175,7 @@
             button4.FlatStyle = FlatStyle.Flat;
             button4.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button4.ForeColor = Color.CornflowerBlue;
-            button4.Location = new Point(390, 21);
+            button4.Location = new Point(3, 255);
             button4.Name = "button4";
             button4.Size = new Size(120, 120);
             button4.TabIndex = 3;
@@ -134,7 +193,7 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button5.ForeColor = Color.CornflowerBlue;
-            button5.Location = new Point(12, 147);
+            button5.Location = new Point(255, 255);
             button5.Name = "button5";
             button5.Size = new Size(120, 120);
             button5.TabIndex = 4;
@@ -152,7 +211,7 @@
             button6.FlatStyle = FlatStyle.Flat;
             button6.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button6.ForeColor = Color.CornflowerBlue;
-            button6.Location = new Point(138, 147);
+            button6.Location = new Point(381, 255);
             button6.Name = "button6";
             button6.Size = new Size(120, 120);
             button6.TabIndex = 5;
@@ -170,7 +229,7 @@
             button7.FlatStyle = FlatStyle.Flat;
             button7.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button7.ForeColor = Color.CornflowerBlue;
-            button7.Location = new Point(264, 147);
+            button7.Location = new Point(3, 381);
             button7.Name = "button7";
             button7.Size = new Size(120, 120);
             button7.TabIndex = 6;
@@ -188,7 +247,7 @@
             button8.FlatStyle = FlatStyle.Flat;
             button8.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button8.ForeColor = Color.CornflowerBlue;
-            button8.Location = new Point(390, 147);
+            button8.Location = new Point(129, 381);
             button8.Name = "button8";
             button8.Size = new Size(120, 120);
             button8.TabIndex = 7;
@@ -206,7 +265,7 @@
             button9.FlatStyle = FlatStyle.Flat;
             button9.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button9.ForeColor = Color.CornflowerBlue;
-            button9.Location = new Point(12, 273);
+            button9.Location = new Point(3, 129);
             button9.Name = "button9";
             button9.Size = new Size(120, 120);
             button9.TabIndex = 8;
@@ -224,7 +283,7 @@
             button10.FlatStyle = FlatStyle.Flat;
             button10.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button10.ForeColor = Color.CornflowerBlue;
-            button10.Location = new Point(138, 273);
+            button10.Location = new Point(129, 129);
             button10.Name = "button10";
             button10.Size = new Size(120, 120);
             button10.TabIndex = 9;
@@ -242,7 +301,7 @@
             button11.FlatStyle = FlatStyle.Flat;
             button11.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button11.ForeColor = Color.CornflowerBlue;
-            button11.Location = new Point(264, 273);
+            button11.Location = new Point(255, 129);
             button11.Name = "button11";
             button11.Size = new Size(120, 120);
             button11.TabIndex = 10;
@@ -260,7 +319,7 @@
             button12.FlatStyle = FlatStyle.Flat;
             button12.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button12.ForeColor = Color.CornflowerBlue;
-            button12.Location = new Point(390, 273);
+            button12.Location = new Point(381, 129);
             button12.Name = "button12";
             button12.Size = new Size(120, 120);
             button12.TabIndex = 11;
@@ -278,7 +337,7 @@
             button13.FlatStyle = FlatStyle.Flat;
             button13.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button13.ForeColor = Color.CornflowerBlue;
-            button13.Location = new Point(12, 399);
+            button13.Location = new Point(3, 3);
             button13.Name = "button13";
             button13.Size = new Size(120, 120);
             button13.TabIndex = 12;
@@ -296,7 +355,7 @@
             button14.FlatStyle = FlatStyle.Flat;
             button14.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button14.ForeColor = Color.CornflowerBlue;
-            button14.Location = new Point(138, 399);
+            button14.Location = new Point(129, 3);
             button14.Name = "button14";
             button14.Size = new Size(120, 120);
             button14.TabIndex = 13;
@@ -314,7 +373,7 @@
             button15.FlatStyle = FlatStyle.Flat;
             button15.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button15.ForeColor = Color.CornflowerBlue;
-            button15.Location = new Point(264, 399);
+            button15.Location = new Point(255, 3);
             button15.Name = "button15";
             button15.Size = new Size(120, 120);
             button15.TabIndex = 14;
@@ -332,7 +391,7 @@
             button16.FlatStyle = FlatStyle.Flat;
             button16.Font = new Font("Wingdings", 48F, FontStyle.Regular, GraphicsUnit.Point);
             button16.ForeColor = Color.CornflowerBlue;
-            button16.Location = new Point(390, 399);
+            button16.Location = new Point(381, 3);
             button16.Name = "button16";
             button16.Size = new Size(120, 120);
             button16.TabIndex = 15;
@@ -340,84 +399,54 @@
             button16.UseVisualStyleBackColor = false;
             button16.Click += button_Click;
             // 
-            // label1
+            // flowLayoutPanelButtonsCards
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(529, 147);
-            label1.Name = "label1";
-            label1.Size = new Size(116, 25);
-            label1.TabIndex = 16;
-            label1.Text = "Move count:";
-            // 
-            // labelNumberOfGuesses
-            // 
-            labelNumberOfMoves.AutoSize = true;
-            labelNumberOfMoves.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNumberOfMoves.Location = new Point(652, 147);
-            labelNumberOfMoves.Name = "labelNumberOfGuesses";
-            labelNumberOfMoves.Size = new Size(22, 25);
-            labelNumberOfMoves.TabIndex = 17;
-            labelNumberOfMoves.Text = "0";
-            // 
-            // timer
-            // 
-            timer.Interval = 1000;
-            timer.Tick += timer_Tick;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(529, 242);
-            label2.Name = "label2";
-            label2.Size = new Size(57, 25);
-            label2.TabIndex = 18;
-            label2.Text = "Time:";
-            // 
-            // labelTimeElapsed
-            // 
-            labelTimeElapsed.AutoSize = true;
-            labelTimeElapsed.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelTimeElapsed.Location = new Point(652, 242);
-            labelTimeElapsed.Name = "labelTimeElapsed";
-            labelTimeElapsed.Size = new Size(22, 25);
-            labelTimeElapsed.TabIndex = 19;
-            labelTimeElapsed.Text = "0";
+            flowLayoutPanelButtonsCards.Controls.Add(button13);
+            flowLayoutPanelButtonsCards.Controls.Add(button14);
+            flowLayoutPanelButtonsCards.Controls.Add(button15);
+            flowLayoutPanelButtonsCards.Controls.Add(button16);
+            flowLayoutPanelButtonsCards.Controls.Add(button9);
+            flowLayoutPanelButtonsCards.Controls.Add(button10);
+            flowLayoutPanelButtonsCards.Controls.Add(button11);
+            flowLayoutPanelButtonsCards.Controls.Add(button12);
+            flowLayoutPanelButtonsCards.Controls.Add(button4);
+            flowLayoutPanelButtonsCards.Controls.Add(button3);
+            flowLayoutPanelButtonsCards.Controls.Add(button5);
+            flowLayoutPanelButtonsCards.Controls.Add(button6);
+            flowLayoutPanelButtonsCards.Controls.Add(button7);
+            flowLayoutPanelButtonsCards.Controls.Add(button8);
+            flowLayoutPanelButtonsCards.Controls.Add(button2);
+            flowLayoutPanelButtonsCards.Controls.Add(button1);
+            flowLayoutPanelButtonsCards.Location = new Point(6, 6);
+            flowLayoutPanelButtonsCards.Name = "flowLayoutPanelButtonsCards";
+            flowLayoutPanelButtonsCards.Size = new Size(511, 509);
+            flowLayoutPanelButtonsCards.TabIndex = 21;
             // 
             // Pairs
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(720, 540);
+            ClientSize = new Size(706, 515);
+            Controls.Add(flowLayoutPanelButtonsCards);
+            Controls.Add(buttonReset);
             Controls.Add(labelTimeElapsed);
             Controls.Add(label2);
             Controls.Add(labelNumberOfMoves);
             Controls.Add(label1);
-            Controls.Add(button16);
-            Controls.Add(button15);
-            Controls.Add(button14);
-            Controls.Add(button13);
-            Controls.Add(button12);
-            Controls.Add(button11);
-            Controls.Add(button10);
-            Controls.Add(button9);
-            Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Name = "Pairs";
             Text = "Pairs";
+            flowLayoutPanelButtonsCards.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
+        private Label label1;
+        private Label labelNumberOfMoves;
+        private System.Windows.Forms.Timer timer;
+        private Label label2;
+        private Label labelTimeElapsed;
+        private Button buttonReset;
         private Button button1;
         private Button button2;
         private Button button3;
@@ -434,10 +463,6 @@
         private Button button14;
         private Button button15;
         private Button button16;
-        private Label label1;
-        private Label labelNumberOfMoves;
-        private System.Windows.Forms.Timer timer;
-        private Label label2;
-        private Label labelTimeElapsed;
+        private FlowLayoutPanel flowLayoutPanelButtonsCards;
     }
 }

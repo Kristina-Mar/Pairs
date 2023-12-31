@@ -1,19 +1,16 @@
 using System.Media;
+using System.Security.Cryptography;
 
 namespace Pairs
 {
     public partial class Pairs : Form
     {
-        private SoundPlayer soundMatch;
-        private SoundPlayer soundNoMatch;
-        private SoundPlayer soundWin;
-
         public Pairs()
         {
             InitializeComponent();
-            Button[] buttons = new Button[16];
+            buttons = new Button[16];
             int i = 0;
-            foreach (Control c in this.Controls) // Makes an array of all buttons/cards.
+            foreach (Control c in flowLayoutPanelButtonsCards.Controls) // Makes an array of all buttons/cards (excludes the Reset button).
             {
                 if (c is Button)
                 {
@@ -21,20 +18,16 @@ namespace Pairs
                     i++;
                 }
             }
-            Random randomNumberGenerator = new Random();
-            int arrayLength = buttons.Length;
-            for (int j = arrayLength - 1; j >= 0; j--) // Random picture position (= Text property) assignment.
-            {
-                string originalText = buttons[j].Text;
-                int newButtonPosition = randomNumberGenerator.Next(j + 1);
-                string newText = buttons[newButtonPosition].Text;
-                buttons[j].Text = newText;
-                buttons[newButtonPosition].Text = originalText;
-            }
+            buttonReset.PerformClick(); // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
+
             soundMatch = new SoundPlayer("match.wav");
             soundNoMatch = new SoundPlayer("no match.wav");
             soundWin = new SoundPlayer("win.wav");
         }
+        private Button[] buttons; // Array of buttons - cards (excludes the Reset button).
+        private int buttonsArrayLength;
+        Random randomNumberGenerator = new Random();
+
         private Button Card1;
         private Button Card2;
 
@@ -43,6 +36,10 @@ namespace Pairs
         private int numberOfMatchedCards = 0; // When every card is matched, a message box appears (see below).
         private int numberOfMoves = 0;
         private int timeElapsed;
+
+        private SoundPlayer soundMatch;
+        private SoundPlayer soundNoMatch;
+        private SoundPlayer soundWin;
 
         private void IncreaseNumberOfMoves() // Increases the number of guesses/moves and updates the corresponding label.
         {
@@ -89,7 +86,11 @@ namespace Pairs
                 {
                     timer.Stop();
                     soundWin.Play();
-                    MessageBox.Show($"Congratulations! You found all pairs in {timeElapsed} seconds and {numberOfMoves} moves!", "Congratulations", MessageBoxButtons.OK);
+                    DialogResult playAgain = MessageBox.Show($"Congratulations! You found all pairs in {timeElapsed} seconds and {numberOfMoves} moves! Would you like to play again?", "Congratulations", MessageBoxButtons.YesNo);
+                    if (playAgain == DialogResult.Yes)
+                    {
+                        buttonReset.PerformClick();
+                    }
                 }
                 card1Text = string.Empty; // The text variables (pictures) are reset so that a new pair of values can be set.
                 card2Text = string.Empty;
@@ -100,6 +101,27 @@ namespace Pairs
         {
             timeElapsed++;
             labelTimeElapsed.Text = timeElapsed.ToString();
+        }
+
+        private void gameReset(object sender, EventArgs e) // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
+        {
+            timer.Stop();
+            timeElapsed = 0;
+            labelTimeElapsed.Text = "0";
+            numberOfMatchedCards = 0;
+            numberOfMoves = 0;
+            labelNumberOfMoves.Text = "0";
+            buttonsArrayLength = buttons.Length;
+            for (int j = buttonsArrayLength - 1; j >= 0; j--) // Random picture position (= Text property) assignment.
+            {
+                buttons[j].Enabled = true;
+                buttons[j].ForeColor = Color.CornflowerBlue;
+                string originalText = buttons[j].Text;
+                int newButtonPosition = randomNumberGenerator.Next(j + 1);
+                string newText = buttons[newButtonPosition].Text;
+                buttons[j].Text = newText;
+                buttons[newButtonPosition].Text = originalText;
+            }
         }
     }
 }
