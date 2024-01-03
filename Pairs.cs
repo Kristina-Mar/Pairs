@@ -18,8 +18,8 @@ namespace Pairs
                     i++;
                 }
             }
-            buttonReset.PerformClick(); // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
-
+            gameReset(this, EventArgs.Empty); // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
+            
             soundMatch = new SoundPlayer("match.wav");
             soundNoMatch = new SoundPlayer("no match.wav");
             soundWin = new SoundPlayer("win.wav");
