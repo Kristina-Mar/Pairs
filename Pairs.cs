@@ -16,10 +16,6 @@ namespace Pairs
                 i++;
             }
             gameReset(this, EventArgs.Empty); // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
-            
-            soundMatch = new SoundPlayer("match.wav");
-            soundNoMatch = new SoundPlayer("no match.wav");
-            soundWin = new SoundPlayer("win.wav");
         }
         private Button[] buttons; // Array of buttons - cards (excludes the Reset button).
         private int buttonsArrayLength;
@@ -34,9 +30,9 @@ namespace Pairs
         private int numberOfMoves = 0;
         private int timeElapsed;
 
-        private SoundPlayer soundMatch;
-        private SoundPlayer soundNoMatch;
-        private SoundPlayer soundWin;
+        private SoundPlayer soundMatch = new SoundPlayer(Properties.Resources.match);
+        private SoundPlayer soundNoMatch = new SoundPlayer(Properties.Resources.no_match);
+        private SoundPlayer soundWin = new SoundPlayer(Properties.Resources.win);
 
         private void IncreaseNumberOfMoves() // Increases the number of guesses/moves and updates the corresponding label.
         {
