@@ -10,13 +10,10 @@ namespace Pairs
             InitializeComponent();
             buttons = new Button[16];
             int i = 0;
-            foreach (Control c in flowLayoutPanelButtonsCards.Controls) // Makes an array of all buttons/cards (excludes the Reset button).
+            foreach (Button b in flowLayoutPanelButtonsCards.Controls) // Makes an array of all buttons/cards (excludes the Reset button).
             {
-                if (c is Button)
-                {
-                    buttons[i] = c as Button;
-                    i++;
-                }
+                buttons[i] = b as Button;
+                i++;
             }
             gameReset(this, EventArgs.Empty); // All cards are turned to the non-picture side, activated and shuffled, timer and move count set to 0.
             
